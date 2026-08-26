@@ -1,0 +1,209 @@
+---
+title: LLM Engineer
+subtitle: Learning 
+author: Mosa Rahimi 
+date: July 28, 2026
+
+
+---
+
+### Imports 
+```{python}
+
+import os 
+from openai import OpenAI
+from dotenv import load_dotenv 
+from IPython.display import display, Markdown
+
+load_dotenv(override = True)
+deepseek_client = OpenAI(api_key=os.getenv("DEEPSEEK_API_KEY"), base_url="https://api.deepseek.com")
+# definte the input messages list 
+messages = [{"role": "user", "content": "Hello, Deepseek!, this is my first ever message to you."}]
+
+response = deepseek_client.chat.completions.create(model = "deepseek-v4-flash", messages = messages)
+print(response.choices[0].message.content)
+
+# Define your default models for easy importing across notebooks
+# DEFAULT_MODEL = "deepseek-v4-flash"
+# REASONING_MODEL = "deepseek-v4-pro"
+
+
+```
+
+```{python}
+print("some timeI hate it when doesn't work the way I want it to work")
+
+```
+
+
+
+```{python}
+
+DEEPSEEK_BASE_URL = "https://api.deepseek.com/v1"
+deepseek_api_key = os.getenv("DEEPSEEK_API_KEY")
+deepseek = OpenAI(base_url=DEEPSEEK_BASE_URL, api_key=deepseek_api_key)
+response = deepseek.chat.completions.create(model="deepseek-chat", messages=[{"role":"user", "content": "what is 2+2?"}])
+print(response.choices[0].message.content)
+
+```
+
+
+```{python}
+message = "Hello, Deepseek!, this is my first ever message to you."
+messages = [{"role": "user", "content": message}]
+messages
+
+```
+
+
+```{python}
+
+response = deepseek.chat.completions.create(model = "deepseek-v4-flash", messages = messages)
+response.choices[0].message.content
+
+```
+
+
+
+```{python}
+# models = deepseek.models.list()
+# for model in models: 
+#   print(model.id)
+
+```
+
+
+#### Trying the scapper in the lecture 
+
+```{python}
+import sys
+from pathlib import Path
+root_dir = Path().resolve().parent
+print(root_dir)
+sys.path.append(str(root_dir))
+from llm_engineering.week1.scraper import fetch_website_contents 
+ed =  fetch_website_contents("https://edwarddonner.com")
+print(ed)
+
+```
+
+
+```{python}
+# Define our system prompt - you can experiment with this later, changing the last sentence to 'Respond in markdown in Spanish."
+
+system_prompt = """
+You are a helpful assistant that analyzes the contents of a website,
+and provides a short and concise summary, ignoring text that might be navigation related.
+Respond in markdown. Do not wrap the markdown in a code block - respond just with the markdown.
+"""
+
+
+```
+
+
+```{python}
+# Define our user prompt
+
+user_prompt_prefix = """
+Here are the contents of a website.
+Provide a short summary of this website.
+If it includes news or announcements, then summarize these too.
+
+"""
+
+```
+
+
+```{python}
+[
+    {"role": "system", "content": "system message goes here"},
+    {"role": "user", "content": "user message goes here"}
+]
+
+```
+
+
+Depending on which description to you provide for the conent of the role, the system might give different responses. 
+i.e. for yo ure a snarkly assistant, it will give you snarky response. 
+
+```{python}
+message = [
+    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "user", "content": "What is 2 + 2?"}
+]
+
+response = deepseek.chat.completions.create(model = "deepseek-v4-flash", messages = message)
+response.choices[0].message.content
+
+```
+
+
+
+```{python}
+def message_for(website):
+    return [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_prompt_prefix + website}
+    ]
+
+```
+
+
+
+```{python}
+
+message_for(ed)
+
+```
+
+```{python}
+def summarize(url):
+    website = fetch_website_contents(url)
+    response = deepseek.chat.completions.create(
+        model = "deepseek-v4-flash",
+        messages = message_for(website)
+    )
+    return response.choices[0].message.content
+
+
+```
+
+
+```{python}
+summarize("https://edwarddonner.com")
+
+```
+
+```{python}
+def display_summary(url):
+    summary = summarize(url)
+    display(Markdown(summary))
+```
+
+
+```{python}
+display_summary("https://edwarddonner.com")
+```
+
+```{python}
+
+display_summary("https://cnn.com")
+
+```
+
+```{python}
+display_summary("https://deepseek.com")
+
+```
+
+
+
+```{python}
+display_summary("https://anthropic.com")
+
+
+```
+
+
+
+

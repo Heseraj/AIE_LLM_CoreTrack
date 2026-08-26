@@ -1,0 +1,71 @@
+# Environment & Security Credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.pfx
+id_rsa
+*.pub
+
+# Python & Virtual Environments
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Node.js & Dependencies
+node_modules/
+vendor/
+Pods/
+
+# Build Outputs & Artifacts
+dist/
+build/
+out/
+target/
+*.exe
+*.dll
+*.so
+*.dylib
+*.class
+*.jar
+*.war
+*.o
+*.obj
+
+# IDE & Editor Metadata
+.vscode/
+.idea/
+.positron/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Operating System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.Trashes
+
+# Logs & Temporary Caches
+*.log
+.cache/
+tmp/
+temp/

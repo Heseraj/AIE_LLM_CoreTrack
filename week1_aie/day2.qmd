@@ -1,0 +1,23 @@
+---
+title: LLM Engineering 
+subtitle: Day 2 Content
+subject: Learning about calling free open source llm
+author: Mosa Rahimi
+date: July 29, 2026
+
+---
+
+#### Packages 
+
+```{python}
+
+
+
+```
+
+
+
+
+```{python}
+
+```
