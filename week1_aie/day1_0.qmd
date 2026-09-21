@@ -1,0 +1,65 @@
+---
+title: LLM Engineer
+subtitle: Learning 
+author: Mosa Rahimi 
+date: September 20, 2026
+---
+
+
+
+```{python}
+
+assert 8 + 8 == 16
+print("Hello world!")
+from llm_engineering.week1.day1 import api_key
+
+```
+
+
+### Imports 
+
+```{python}
+import os 
+from dotenv import load_dotenv 
+# from scraper import fetch_website_contents ## Scraper is a custom function  
+from IPython.display import Markdown, display
+from openai import OpenAI 
+
+```
+
+
+```{python}
+## Loading evnironmental variable from .env 
+load_dotenv(override=True)
+api_key=os.getenv("OPENAI_API_KEY")
+## checking for the exisistance of the key 
+if not api_key: 
+  print("No api key found. Please troubleshoot.")
+  ## I could build several contingencies if no api keys found. 
+else: 
+  print("Api key found. ")
+
+```
+
+
+```{python}
+## checking the message with openai 
+message = "Hello GPT!. This is my first message to you"
+messages = [{"role":"user", "content": message}]
+messages
+
+```
+
+
+```{python}
+openai = OpenAI()
+response = openai.chat.completions.create(model = "gpt-5-nano", messages = messages)
+response.choices[0].message.content 
+
+```
+
+
+
+```{python}
+
+```
